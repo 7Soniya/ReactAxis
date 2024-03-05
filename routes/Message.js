@@ -3,8 +3,8 @@ const messageRecive = require("../models/Messages");
 const router = express.Router();
 
 router.get("/axismessage", async function (req, res) {
-    const messagess = await messageRecive.find()
-    res.json((messagess));
+    const message = await messageRecive.find().sort({ CharacterData: -1 })
+    res.send((message));
 })
 
 // router.get("/axismessage", async (req, res) => {

@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+
 const mongoose = require("mongoose");
 const formDta = require("./routes/Form")
 const messageRecived = require("./routes/Message")
@@ -13,6 +14,20 @@ app.use(cors());
 app.use(express.json());
 app.use("/", formDta);
 app.use("/", messageRecived);
+
+
+
+
+
+app.use(async function (req, res, err, next) {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    res.status(err.status || 500);
+    res.render('error');
+})
+
+
 
 
 
